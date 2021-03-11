@@ -1,41 +1,96 @@
 //MAIN OBJECTIVE: Get the weather data from API and return data to user
 
-//function to get data from API
-//city is a parameter because the API expects a city
-function getWeather(cityName) {
-    //if statement parameter to check if a city name was pass by user
-    //else show error
-    if (cityName) {
-        //if is true then request from server
-        var weatherHTTP = new XMLHttpRequest();
-        //onreadystatechange return the loading status of current document
-        // QUESTION is it like $(document).ready();
-        weatherHTTP.onreadystatechange = function () {
-            //so we request from server via XML
-            //then we checked if document and server is ready
-            if (this.readyState == 4 && this.status == 200) {
-                //if is true, if both are ready
-                //convert string data into json (obejcts), otherwise JavaScript wont be able to read it. Using JSON.parse
-                // then display it as my displayWeather function says.
-                var weatherData = displayWeather(JSON.parse(weatherHTTP.responseText));
+/*Fetch Data*/
+const getWeather = (cityName) => {
+    //Fetch Data from the API I choose 
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=af2e529daf727ec2cbec62e2e2a2484b`)
+    .then(response => {
+        //Then check the status of the request.
+        if (response.status !== 200) {
+            console.log(`Status Error ${response.status}`)
+            return;
+        }
+        //Then Convert the data into json
+        response.json().then(data => {
+            //selecting the nodes from DOM with jquery
+            let general = $("#general-info");
+            let currentWeather = $("#current-weather");
+            let forecast = $("#forecast");
+            //convert json object into array.
+            if (!Array.isArray(data)) data = [data];
+            console.log(data);
+            //function to create the page when load the document
+            for (let weather of data) {
+                // create variables from the object
+                // city name, country
+                let name = weather.name;
+                let country = weather.sys.country;
+                //temperature, temperature MAX n MIN
+                let temp = weather.main.temp;
+                let tempMax = weather.main.temp_max;
+                let tempMin = weather.main.temp_min;
+                //feels like, humidity, pressure
+                let feel = weather.main.feels_like;
+                let hum = weather.main.humidity;
+                let press = weather.main.pressure;
+                //sunrise and sunset
+                let sunrise = weather.sys.sunrise;
+                let sunset = weather.sys.sunset;
+                //wind degrees and speed
+                let windDeg = weather.wind.deg;
+                let windSpeed = weather.wind.speed;
+                //general info 
+                let sky = weather.weather[0].description;
+                let icon = weather.weather[0].icon;
+                let main = weather.weather[0].main;
+                let vis = weather.visibility;
+                let dt = weather.dt;
+                let timeZ = weather.timezone;
 
-                console.log(weatherData);
-                document.getElementById('weather-display').innerHTML = weatherData;
-                document.getElementById('city-name').value = '';
+                //append the content with Jquery
+                general.append(
+                    `<h4>${name}, ${country} Weather</h4>` +
+                    `<p>${temp} C°</p>` + 
+                    `<p>${main}</p>` +
+                    `${icon}` +
+                    `<p>${tempMax}/${tempMin}`                  
+                )
+                currentWeather.append(
+                    `<h4>Current Weather in ${name}, ${country} </h4>` + 
+                    `${feel}` +
+                    `<p> Feels Like</p>` + 
+                    `Sunrise / Sunset ${sunrise} ${sunset}</p>` +
+                    `<p>Max / Min ${tempMax}/${tempMin}</p>` +
+                    `<p> Humidity ${hum}%</p>` +
+                    `<p> Pressure ${press}mb</p>` +
+                    `<p> Visibility ${vis}</p>` +
+                    `<p> Wind ${windDeg}° / ${windSpeed}km/h</p>` + 
+                    `<p> Sky ${icon} ${sky}</p>`
+                )
+                forecast.append(
+                    `<h4>Daily Forecast`
+                )
             }
-        };
-        //sending a request to server using open and send methods
-        //syntax resume GET the data from the API + cityName (from user) + use metrics units + my API key
-        weatherHTTP.open('GET', 'api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=metric&appid=af2e529daf727ec2cbec62e2e2a2484b')
-        weatherHTTP.send();
-    }
-    //if something went wrong, show a error message
-    else {
-        alert('Sorry, something went wrong. You must enter a city name! Check spelling, if the error persist we might not have it in our catalog.')
-    }
-    return false;
+        })  //then catch any error it might have
+            .catch(error => {
+                console.log(`We have some error ${error}`);
+            })
+    })
+
 }
 
-function displayWeather(weatherData) {
-    console.log(weatherData.name)
-}
+getWeather('Vancouver');
+
+// $(document).ready(() => {
+
+//     getWeather(); //when we load the page
+//     let searchButton = $("#search");
+
+//     //when we search for a city
+//     searchButton.on('click', () => { 
+//         $("current-weather").empty();
+//         $("forecast").empty();
+//         getWeather('Vancouver');
+//     });
+
+// })
