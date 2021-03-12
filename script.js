@@ -138,7 +138,7 @@ $(document).ready(() => {
     getWeather("Vancouver");
 })
 
-//updating my cityName onclick
+//updating my cityName parameter onclick
 let myInput = document.getElementById('myInput');
 let searchButton = document.getElementById('seach');
 
