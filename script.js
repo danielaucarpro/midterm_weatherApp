@@ -1,5 +1,8 @@
 //MAIN OBJECTIVE: Get the weather data from API and return data to user
 console.log("Loading script.js");
+let url = 'https://api.openweathermap.org/data/2.5/weather?q=';
+let units = '';
+let myAPIKey = 'af2e529daf727ec2cbec62e2e2a2484b'
 
 /*Get Weather Fetch Data*/
 console.log("Configure const getWeather");
@@ -7,7 +10,7 @@ const getWeather = (cityName) => {
     console.log("Getting the weather for " + cityName);
     //Fetch Data from the API I choose 
     console.log("\t Starting our Fetch Statement");
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=af2e529daf727ec2cbec62e2e2a2484b`)
+    fetch(`${url}${cityName}&units=metric&appid=${myAPIKey}`)
         .then(response => {
             console.log("\t\t Fetch has completed executing, response is ");
             console.log(response);
@@ -68,8 +71,6 @@ const getWeather = (cityName) => {
                     let main = weather.weather[0].main;
                     let vis = weather.visibility;
                     let dt = weather.dt;
-                    var date = new Date();
-                    dt = date;
                     let timeZ = weather.timezone;
 
                     //append the content with Jquery
@@ -129,15 +130,24 @@ function refresh() {
     location.reload();
 }
 
+//setting Vancouver as a default city when the page is loaded
+// window.addEventListener("DOMContentLoaded", () => {
+//     getWeather('Vancouver')
+// });
 $(document).ready(() => {
-    //setting Vancouver as a default city when the page is loaded
-    let defaultCity = document.getElementById('myInput').value;
-    console.log("Your default city is: " + defaultCity);
-    getWeather(defaultCity);
-
-    let searchButton = $("#search");
-    console.log('oi');
-    searchButton.on('click', () => {
-        document.getElementById("myInput").value = defaultCity;
-    });
+    getWeather("Vancouver");
 })
+
+//updating my cityName onclick
+let myInput = document.getElementById('myInput');
+let searchButton = document.getElementById('seach');
+
+function changeCity(){
+    if (myInput.value == null) {
+        alert('Sorry, something went wrong. You must enter a city name! Please check spelling, if the error persist we might not have it in our catalog.');
+    } 
+    else{
+        getWeather(myInput.value);
+        myInput.value = '';
+    }
+}
