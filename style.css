@@ -2,3 +2,80 @@ body{
     margin: 0px;
     padding: 0px;
 }
+
+#nav-title{
+    margin-right: 30px;
+}
+
+#navbar{
+    margin: 0px;
+    justify-content: center;
+    height: 100px;
+    width: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+
+}
+
+.container{
+    margin-top: 20px;
+}
+
+/* General Info */
+#general-info{
+    display: block;
+    margin-bottom: 20px;
+    padding: 20px;
+    width: 700px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px lightgray;
+}
+
+#general-temp{
+    font-size: 40pt;
+}
+
+#general-main{
+    font-size: 20pt;
+    justify-content: center;
+    align-items: center;
+}
+
+#general-resume{
+    display: flex;
+    float: right;
+    font-size: 18pt;
+    margin-right: 30px;
+}
+
+#general-icon{
+    margin-right: 20px;
+}
+
+#general-maxMin{
+    font-size: 18pt;
+}
+
+/* Current Weather */
+#current-weather{
+    display: grid;
+    margin-bottom: 20px;
+    padding: 20px;
+    width: 700px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px lightgray;
+}
+
+#current-feels{
+    font-size: 30pt;
+}
+
+#current-feels-text{
+    font-size: 15pt;
+}
+
+.current-data{
+    font-size: 13pt;
+}

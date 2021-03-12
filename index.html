@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <!-- Title  -->
     <title>WADP 2 - Midterm Weather App - Daniel Aucar Felipe</title>
+    <!-- Css Ref -->
+    <link rel="stylesheet" href="./style.css">
     <!--Bootstrap Ref-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -22,36 +24,57 @@
     <div class="header-container">
         <header>
             <nav class="navbar navbar-light bg-light">
-                <div class="container-fluid">
+                <div id="navbar" class="container-fluid">
+                    <h4 id="nav-title">Weather App</h4>
                     <!--Search Bar-->
                     <form class="d-flex">
                         <input id="myInput" class="form-control me-2" type="search"
-                            placeholder="Search city or zip code" aria-label="Search">
-                        <button id="search" onclick="changeCity()" class="btn btn-outline-success"
-                            type="submit">Search</button>
+                            placeholder="eg. Vancouver, São Paulo" aria-label="Search">
+                        <button id="search" onclick="changeCity(document.getElementById('myInput'))"
+                            class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>
-    </div>
-    </nav>
-    </header>
+            </nav>
+        </header>
     </div>
     <div class="container">
-        <!--Display Current Weather-->
-        <div class="container">
-            <div class="row justify-content-md-center">
-                <div class="col-md-auto" id="general-info">
-                    <!-- Display General Info -->
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto" id="general-info">
+                <!-- Display General Info -->
+                <div id="title-general">
+                    <!-- Display City Name, country and date -->
+                </div>
+                <div id="general-temp">
+                    <!-- display current temperature -->
+                </div>
+                <div id="general-main">
+                    <!-- display main weatyher condition -->
+                    <div id="general-resume">
+                        <div id="general-icon">
+                            <!-- display icon -->
+                        </div>
+                        <div id="general-maxMin">
+                            <!-- display max/min temperature -->
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row justify-content-md-center">
-                <div class="col-md-auto" id="current-weather">
-                    <!-- Display current weather -->
-                </div>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto" id="current-weather">
+            <!-- Display current weather -->
+            <div id="title-current">
+
             </div>
-            <div class="row justify-content-md-center">
-                <div class="col-md-auto" id="forecast">
-                    <!--Display Current Weather-->
-                </div>
+            <div id="current-feels">
+
+            </div>
+            <div id="current-feels-text">
+
+            </div>
+            <div class="current-data">
+
             </div>
         </div>
     </div>

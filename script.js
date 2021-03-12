@@ -1,5 +1,21 @@
 //MAIN OBJECTIVE: Get the weather data from API and return data to user
 
+$(document).ready(() => {
+    //when we load the page load vancouver as default
+    getWeather("Vancouver");
+
+})
+
+// when we search for a city
+function changeCity() {
+    getWeather('');
+    var cityName = $("myInput").value;
+    $("#general-info").empty();
+    $("#current-weather").empty();
+    $("#forecast").empty();
+    getWeather(cityName);
+}
+
 /*Get Weather Fetch Data*/
 const getWeather = (cityName) => {
     //Fetch Data from the API I choose 
@@ -13,9 +29,15 @@ const getWeather = (cityName) => {
             //Then Convert the data into json
             response.json().then(data => {
                 //selecting the nodes from DOM with jquery
-                let general = $("#general-info");
-                let currentWeather = $("#current-weather");
-                let forecast = $("#forecast");
+                let title = $("#title-general");
+                let generalTemp = $("#general-temp");
+                let generalMain = $("#general-main");
+                let generalIcon = $("#general-icon");
+                let generalMaxMin = $('#general-maxMin')
+                let currentTitle = $("#title-current");
+                let currentFeels = $("#current-feels");
+                let currentFeelsText = $("#current-feels-text");
+                let currentSun = $(".current-data");
                 //convert json object into array.
                 if (!Array.isArray(data)) data = [data];
                 //console.log to help me find the data I want
@@ -46,30 +68,51 @@ const getWeather = (cityName) => {
                     let main = weather.weather[0].main;
                     let vis = weather.visibility;
                     let dt = weather.dt;
+                    var date = new Date();
+                    dt = date;
                     let timeZ = weather.timezone;
 
                     //append the content with Jquery
-                    general.append(
+                    title.append(
                         `<h4>${name}, ${country} Weather</h4>` +
-                        `<p>${temp} C°</p>` +
-                        `<p>${main}</p>` +
-                        `${icon}` +
-                        `<p>${tempMax}°/${tempMin}°`
+                        `<p>${dt}`
                     )
-                    currentWeather.append(
-                        `<h4>Current Weather in ${name}, ${country} </h4>` +
-                        `${feel}C°` +
-                        `<p> Feels Like</p>` +
-                        `Sunrise / Sunset ${sunrise} ${sunset}</p>` +
+                    generalTemp.append(
+                        `<p>${temp} C°</p>`
+                    )
+                    generalMain.append(
+                        `<p>${main}</p>`
+                    )
+                    generalIcon.append(
+                        `<img src="http://openweathermap.org/img/w/${icon}">`
+                    )
+                    generalMaxMin.append(
+                        `<p>${tempMax}° / ${tempMin}°</p>`
+                    )
+                    currentTitle.append(
+                        `<h4>Current Weather in ${name}, ${country} </h4>`
+                    )
+                    currentFeels.append(
+                        `${feel} C°`
+                    )
+                    currentFeelsText.append(
+                        `<p>Feels Like</p>`
+                    )
+                    currentSun.append(
+                        `<hr>` +
+                        `<p>Sunrise / Sunset ${sunrise} ${sunset}</p>` +
+                        `<hr>` +
                         `<p>Max / Min ${tempMax}° / ${tempMin}°</p>` +
+                        `<hr>` +
                         `<p> Humidity ${hum}%</p>` +
+                        `<hr>` +
                         `<p> Pressure ${press}mb</p>` +
+                        `<hr>` +
                         `<p> Visibility ${vis}</p>` +
+                        `<hr>` +
                         `<p> Wind ${windDeg}° / ${windSpeed}km/h</p>` +
+                        `<hr>` +
                         `<p> Sky ${icon} ${sky}</p>`
-                    )
-                    forecast.append(
-                        `<h4>Daily Forecast</h4>`
                     )
                 }
             })  //then catch any error it might have
@@ -84,20 +127,4 @@ setTimeout(refresh, 120000)
 
 function refresh() {
     location.reload();
-}
-
-$(document).ready(() => {
-    //when we load the page load vancouver as default
-    getWeather("Vancouver");
-
-})
-
-//when we search for a city
-function changeCity() {
-    getWeather().value = '';
-    var inputValue = $("myInput").value;
-    // $("#general-info").empty();
-    // $("#current-weather").empty();
-    // $("#forecast").empty();
-    getWeather(inputValue);
 }
