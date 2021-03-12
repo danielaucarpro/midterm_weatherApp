@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <!-- Title  -->
     <title>WADP 2 - Midterm Weather App - Daniel Aucar Felipe</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./favicon.png">
     <!-- Css Ref -->
     <link rel="stylesheet" href="./style.css">
     <!--Bootstrap Ref-->
@@ -28,10 +30,9 @@
                     <h4 id="nav-title">Weather App</h4>
                     <!--Search Bar-->
                     <form class="d-flex">
-                        <input id="myInput" class="form-control me-2" type="search"
-                            placeholder="eg. Vancouver, São Paulo" aria-label="Search">
-                        <button id="search" onclick="changeCity(document.getElementById('myInput'))"
-                            class="btn btn-outline-success" type="submit">Search</button>
+                        <input type="text" id="myInput" class="form-control me-2" value="Vancouver"
+                            placeholder="eg. Vancouver, São Paulo" autofocus>
+                        <button id="search" class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>
             </nav>
@@ -78,6 +79,15 @@
             </div>
         </div>
     </div>
+    <footer>
+        <div id="socialMedia">
+            <p id="footer-name">Daniel Aucar</p>
+            <a href="https://www.linkedin.com/in/daniel-aucar-felipe-2a922291/">
+                <img src="./img/linkedin-icon-2.svg.png" alt="">
+            </a>
+            <a href="https://www.linkedin.com/in/daniel-aucar-felipe-2a922291/" target="_blank">Linkedin</a>
+        </div>
+    </footer>
 </body>
 
 </html>

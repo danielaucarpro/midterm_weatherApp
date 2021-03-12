@@ -1,33 +1,30 @@
 //MAIN OBJECTIVE: Get the weather data from API and return data to user
-
-$(document).ready(() => {
-    //when we load the page load vancouver as default
-    getWeather("Vancouver");
-
-})
-
-// when we search for a city
-function changeCity() {
-    getWeather('');
-    var cityName = $("myInput").value;
-    $("#general-info").empty();
-    $("#current-weather").empty();
-    $("#forecast").empty();
-    getWeather(cityName);
-}
+console.log("Loading script.js");
 
 /*Get Weather Fetch Data*/
+console.log("Configure const getWeather");
 const getWeather = (cityName) => {
+    console.log("Getting the weather for " + cityName);
     //Fetch Data from the API I choose 
+    console.log("\t Starting our Fetch Statement");
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=af2e529daf727ec2cbec62e2e2a2484b`)
         .then(response => {
+            console.log("\t\t Fetch has completed executing, response is ");
+            console.log(response);
             //Then check the status of the request. If is different than 200 show me the error
             if (response.status !== 200) {
-                console.log(`Status Error ${response.status}`)
+                console.log('\t \t \t Status Error ${response.status}');
                 return;
             }
+            console.log("\t\t Will now process the Response");
+            console.log("\t\t\t Calling response.json().then");
             //Then Convert the data into json
             response.json().then(data => {
+                console.log("\t\t\t\t response.json is finished Converting data to json");
+                console.log("\t\t\t\t Data now looks like;");
+                console.log(data);
+                console.log("\t\t\t Attempting to get Nodes from the DOM with JQuery");
+
                 //selecting the nodes from DOM with jquery
                 let title = $("#title-general");
                 let generalTemp = $("#general-temp");
@@ -38,10 +35,13 @@ const getWeather = (cityName) => {
                 let currentFeels = $("#current-feels");
                 let currentFeelsText = $("#current-feels-text");
                 let currentSun = $(".current-data");
+
                 //convert json object into array.
                 if (!Array.isArray(data)) data = [data];
+                console.log("\t\t\t\tData as Array:" + data)
                 //console.log to help me find the data I want
                 console.log(data);
+
                 //function to create the page when load the document
                 for (let weather of data) {
                     // create variables from the object
@@ -74,8 +74,8 @@ const getWeather = (cityName) => {
 
                     //append the content with Jquery
                     title.append(
-                        `<h4>${name}, ${country} Weather</h4>` +
-                        `<p>${dt}`
+                        `<h4>${name}, ${country} Weather</h4>`
+                        // `<p>${dt}`
                     )
                     generalTemp.append(
                         `<p>${temp} C°</p>`
@@ -84,7 +84,7 @@ const getWeather = (cityName) => {
                         `<p>${main}</p>`
                     )
                     generalIcon.append(
-                        `<img src="http://openweathermap.org/img/w/${icon}">`
+                        `<img src="http://openweathermap.org/img/w/${icon}.png">`
                     )
                     generalMaxMin.append(
                         `<p>${tempMax}° / ${tempMin}°</p>`
@@ -99,8 +99,8 @@ const getWeather = (cityName) => {
                         `<p>Feels Like</p>`
                     )
                     currentSun.append(
-                        `<hr>` +
-                        `<p>Sunrise / Sunset ${sunrise} ${sunset}</p>` +
+                        // `<hr>` +
+                        // `<p>Sunrise / Sunset ${sunrise} ${sunset}</p>` +
                         `<hr>` +
                         `<p>Max / Min ${tempMax}° / ${tempMin}°</p>` +
                         `<hr>` +
@@ -112,7 +112,7 @@ const getWeather = (cityName) => {
                         `<hr>` +
                         `<p> Wind ${windDeg}° / ${windSpeed}km/h</p>` +
                         `<hr>` +
-                        `<p> Sky ${icon} ${sky}</p>`
+                        `<p> Sky <img src="http://openweathermap.org/img/w/${icon}.png"> ${sky}</p>`
                     )
                 }
             })  //then catch any error it might have
@@ -128,3 +128,16 @@ setTimeout(refresh, 120000)
 function refresh() {
     location.reload();
 }
+
+$(document).ready(() => {
+    //setting Vancouver as a default city when the page is loaded
+    let defaultCity = document.getElementById('myInput').value;
+    console.log("Your default city is: " + defaultCity);
+    getWeather(defaultCity);
+
+    let searchButton = $("#search");
+    console.log('oi');
+    searchButton.on('click', () => {
+        document.getElementById("myInput").value = defaultCity;
+    });
+})

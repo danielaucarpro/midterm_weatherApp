@@ -1,6 +1,7 @@
 body{
     margin: 0px;
     padding: 0px;
+    background-color: #f8f9fa;
 }
 
 #nav-title{
@@ -27,9 +28,9 @@ body{
     margin-bottom: 20px;
     padding: 20px;
     width: 700px;
-    border: 1px solid lightgray;
+    border: 1px solid #198754;
     border-radius: 10px;
-    box-shadow: 1px 1px 1px lightgray;
+    box-shadow: 1px 1px 10px lightgray;
 }
 
 #general-temp{
@@ -63,9 +64,9 @@ body{
     margin-bottom: 20px;
     padding: 20px;
     width: 700px;
-    border: 1px solid lightgray;
+    border: 1px solid #198754;
     border-radius: 10px;
-    box-shadow: 1px 1px 1px lightgray;
+    box-shadow: 1px 1px 10px lightgray;
 }
 
 #current-feels{
@@ -78,4 +79,27 @@ body{
 
 .current-data{
     font-size: 13pt;
+}
+
+/* Footer */
+#socialMedia{
+    display: flex;
+    padding: 3em;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+}
+
+#footer-name{
+    margin-top: 20px;
+    margin-right: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+#socialMedia a{
+    margin-left: 10px;
+    font-size: 1em;
+    color: black;
+    text-decoration: none;
 }
