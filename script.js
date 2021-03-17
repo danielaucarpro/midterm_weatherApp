@@ -135,14 +135,12 @@ function refresh() {
 //     getWeather('Vancouver')
 // });
 $(document).ready(() => {
-    getWeather("Vancouver");
+    getWeather("São Paulo");
 })
 
 //updating my cityName parameter onclick
-let myInput = document.getElementById('myInput');
-let searchButton = document.getElementById('seach');
-
 function changeCity(){
+    let myInput = document.getElementById('myInput');
     if (myInput.value == null) {
         alert('Sorry, something went wrong. You must enter a city name! Please check spelling, if the error persist we might not have it in our catalog.');
     } 
