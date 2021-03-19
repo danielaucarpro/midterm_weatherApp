@@ -1,4 +1,3 @@
-//MAIN OBJECTIVE: Get the weather data from API and return data to user
 console.log("Loading script.js");
 let url = 'https://api.openweathermap.org/data/2.5/weather?q=';
 let units = '';
@@ -8,26 +7,16 @@ let myAPIKey = 'af2e529daf727ec2cbec62e2e2a2484b'
 console.log("Configure const getWeather");
 const getWeather = (cityName) => {
     console.log("Getting the weather for " + cityName);
-    //Fetch Data from the API I choose 
-    console.log("\t Starting our Fetch Statement");
+    //Fetch Data from the API I choose s
     fetch(`${url}${cityName}&units=metric&appid=${myAPIKey}`)
         .then(response => {
-            console.log("\t\t Fetch has completed executing, response is ");
             console.log(response);
             //Then check the status of the request. If is different than 200 show me the error
             if (response.status !== 200) {
-                console.log('\t \t \t Status Error ${response.status}');
                 return;
             }
-            console.log("\t\t Will now process the Response");
-            console.log("\t\t\t Calling response.json().then");
             //Then Convert the data into json
             response.json().then(data => {
-                console.log("\t\t\t\t response.json is finished Converting data to json");
-                console.log("\t\t\t\t Data now looks like;");
-                console.log(data);
-                console.log("\t\t\t Attempting to get Nodes from the DOM with JQuery");
-
                 //selecting the nodes from DOM with jquery
                 let title = $("#title-general");
                 let generalTemp = $("#general-temp");
@@ -41,7 +30,6 @@ const getWeather = (cityName) => {
 
                 //convert json object into array.
                 if (!Array.isArray(data)) data = [data];
-                console.log("\t\t\t\tData as Array:" + data)
                 //console.log to help me find the data I want
                 console.log(data);
 
@@ -135,7 +123,7 @@ function refresh() {
 //     getWeather('Vancouver')
 // });
 $(document).ready(() => {
-    getWeather("São Paulo");
+    getWeather("Vancouver");
 })
 
 //updating my cityName parameter onclick
