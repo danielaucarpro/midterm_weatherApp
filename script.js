@@ -123,7 +123,7 @@ function refresh() {
 //     getWeather('Vancouver')
 // });
 $(document).ready(() => {
-    getWeather("Vancouver");
+    getWeather("vancouver");
 })
 
 //updating my cityName parameter onclick
